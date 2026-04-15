@@ -1,40 +1,34 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class TrainConsistApp {
 
     public static void main(String[] args) {
 
         System.out.println("======================================");
-        System.out.println(" UC2 - Add Passenger Bogies to Train ");
+        System.out.println(" UC3 - Track Unique Bogie IDs ");
         System.out.println("======================================\n");
 
-        // Create ArrayList
-        List<String> passengerBogies = new ArrayList<>();
+        // Create a Set to store unique bogie IDs
+        Set<String> bogies = new HashSet<>();
 
-        // ADD bogies
-        passengerBogies.add("Sleeper");
-        passengerBogies.add("AC Chair");
-        passengerBogies.add("First Class");
+        // ADD IDs (including duplicates)
+        bogies.add("BG101");
+        bogies.add("BG102");
+        bogies.add("BG103");
+        bogies.add("BG104");
 
-        System.out.println("After Adding Bogies:");
-        System.out.println("Passenger Bogies : " + passengerBogies);
+        // Duplicate entries (will be ignored automatically)
+        bogies.add("BG101");
+        bogies.add("BG102");
 
-        // REMOVE one bogie
-        passengerBogies.remove("AC Chair");
+        // DISPLAY
+        System.out.println("Bogie IDs After Insertion:");
+        System.out.println(bogies);
 
-        System.out.println("\nAfter Removing 'AC Chair':");
-        System.out.println("Passenger Bogies : " + passengerBogies);
+        System.out.println("\nNote:");
+        System.out.println("Duplicates are automatically ignored by HashSet.");
 
-        // CHECK existence
-        System.out.println("\nChecking if 'Sleeper' exists:");
-        boolean exists = passengerBogies.contains("Sleeper");
-        System.out.println("Contains Sleeper? : " + exists);
-
-        // FINAL LIST
-        System.out.println("\nFinal Train Passenger Consist:");
-        System.out.println(passengerBogies);
-
-        System.out.println("\nUC2 operations completed successfully...");
+        System.out.println("\nUC3 uniqueness validation completed...");
     }
 }
