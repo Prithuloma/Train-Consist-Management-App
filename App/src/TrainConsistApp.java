@@ -1,35 +1,47 @@
-import java.util.Arrays;
-
 public class TrainConsistApp {
 
     public static void main(String[] args) {
 
         System.out.println("======================================");
-        System.out.println(" UC17 - Sort Bogie Names (Arrays.sort) ");
+        System.out.println(" UC18 - Linear Search for Bogie ID ");
         System.out.println("======================================\n");
 
-        String[] bogieNames = {
-                "Sleeper",
-                "AC Chair",
-                "First Class",
-                "General"
+        // Unsorted bogie IDs
+        String[] bogieIds = {
+                "BG101",
+                "BG205",
+                "BG150",
+                "BG310",
+                "BG220"
         };
 
-        // Before Sorting
-        System.out.println("Before Sorting:");
-        for (String b : bogieNames) {
-            System.out.println(b);
+        String searchId = "BG150"; // change to test
+
+        // DISPLAY all IDs
+        System.out.println("Available Bogie IDs:");
+        for (String id : bogieIds) {
+            System.out.println(id);
         }
 
-        // -------- BUILT-IN SORT --------
-        Arrays.sort(bogieNames);
+        // -------- LINEAR SEARCH --------
+        boolean found = false;
+        int position = -1;
 
-        // After Sorting
-        System.out.println("\nAfter Sorting (Alphabetical):");
-        for (String b : bogieNames) {
-            System.out.println(b);
+        for (int i = 0; i < bogieIds.length; i++) {
+            if (bogieIds[i].equals(searchId)) {
+                found = true;
+                position = i;
+                break;
+            }
         }
 
-        System.out.println("\nUC17 sorting completed...");
+        // RESULT
+        if (found) {
+            System.out.println("\nBogie ID " + searchId + " found at position: " + position);
+        } else {
+            System.out.println("\nBogie ID " + searchId + " not found");
+        }
+
+        System.out.println("\nUC18 linear search completed...");
     }
 }
