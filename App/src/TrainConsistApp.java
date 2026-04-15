@@ -1,48 +1,29 @@
-import java.util.*;
-
-class Bogie {
-    String name;
-    int capacity;
-
-    // Constructor
-    Bogie(String name, int capacity) {
-        this.name = name;
-        this.capacity = capacity;
-    }
-}
+import java.util.HashMap;
+import java.util.Map;
 
 public class TrainConsistApp {
 
     public static void main(String[] args) {
 
         System.out.println("======================================");
-        System.out.println(" UC7 - Sort Bogies by Capacity ");
+        System.out.println(" UC6 - Map Bogie to Capacity ");
         System.out.println("======================================\n");
 
-        // Create list
-        List<Bogie> bogies = new ArrayList<>();
+        // Create HashMap
+        Map<String, Integer> bogieMap = new HashMap<>();
 
-        // Add bogies
-        bogies.add(new Bogie("Sleeper", 72));
-        bogies.add(new Bogie("AC Chair", 56));
-        bogies.add(new Bogie("First Class", 24));
-        bogies.add(new Bogie("General", 90));
+        // ADD entries (key = bogie, value = capacity)
+        bogieMap.put("First Class", 24);
+        bogieMap.put("Cargo", 120);
+        bogieMap.put("Sleeper", 72);
+        bogieMap.put("AC Chair", 56);
 
-        // BEFORE SORT
-        System.out.println("Before Sorting:");
-        for (Bogie b : bogies) {
-            System.out.println(b.name + " -> " + b.capacity);
+        // DISPLAY map using entrySet()
+        System.out.println("Bogie Capacity Details:");
+        for (Map.Entry<String, Integer> entry : bogieMap.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
         }
 
-        // SORT using Comparator (ascending by capacity)
-        bogies.sort(Comparator.comparingInt(b -> b.capacity));
-
-        // AFTER SORT
-        System.out.println("\nAfter Sorting by Capacity:");
-        for (Bogie b : bogies) {
-            System.out.println(b.name + " -> " + b.capacity);
-        }
-
-        System.out.println("\nUC7 sorting completed...");
+        System.out.println("\nUC6 bogie-capacity mapping completed...");
     }
 }
