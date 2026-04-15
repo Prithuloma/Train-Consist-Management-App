@@ -1,33 +1,48 @@
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
+
+class Bogie {
+    String name;
+    int capacity;
+
+    // Constructor
+    Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
+    }
+}
 
 public class TrainConsistApp {
 
     public static void main(String[] args) {
 
         System.out.println("======================================");
-        System.out.println(" UC5 - Preserve Insertion Order of Bogies ");
+        System.out.println(" UC7 - Sort Bogies by Capacity ");
         System.out.println("======================================\n");
 
-        // LinkedHashSet → maintains order + removes duplicates
-        Set<String> formation = new LinkedHashSet<>();
+        // Create list
+        List<Bogie> bogies = new ArrayList<>();
 
-        // ADD bogies
-        formation.add("Engine");
-        formation.add("Sleeper");
-        formation.add("Cargo");
-        formation.add("Guard");
+        // Add bogies
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 56));
+        bogies.add(new Bogie("First Class", 24));
+        bogies.add(new Bogie("General", 90));
 
-        // ADD duplicate intentionally
-        formation.add("Sleeper"); // will be ignored
+        // BEFORE SORT
+        System.out.println("Before Sorting:");
+        for (Bogie b : bogies) {
+            System.out.println(b.name + " -> " + b.capacity);
+        }
 
-        // DISPLAY final formation
-        System.out.println("Final Train Formation:");
-        System.out.println(formation);
+        // SORT using Comparator (ascending by capacity)
+        bogies.sort(Comparator.comparingInt(b -> b.capacity));
 
-        System.out.println("\nNote:");
-        System.out.println("LinkedHashSet preserves insertion order and removes duplicates automatically.");
+        // AFTER SORT
+        System.out.println("\nAfter Sorting by Capacity:");
+        for (Bogie b : bogies) {
+            System.out.println(b.name + " -> " + b.capacity);
+        }
 
-        System.out.println("\nUC5 formation setup completed...");
+        System.out.println("\nUC7 sorting completed...");
     }
 }
