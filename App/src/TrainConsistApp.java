@@ -1,44 +1,33 @@
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class TrainConsistApp {
 
     public static void main(String[] args) {
 
         System.out.println("======================================");
-        System.out.println(" UC4 - Maintain Ordered Bogie Consist ");
+        System.out.println(" UC5 - Preserve Insertion Order of Bogies ");
         System.out.println("======================================\n");
 
-        // Create LinkedList
-        List<String> trainConsist = new LinkedList<>();
+        // LinkedHashSet → maintains order + removes duplicates
+        Set<String> formation = new LinkedHashSet<>();
 
-        // ADD bogies in sequence
-        trainConsist.add("Engine");
-        trainConsist.add("Sleeper");
-        trainConsist.add("AC");
-        trainConsist.add("Cargo");
-        trainConsist.add("Guard");
+        // ADD bogies
+        formation.add("Engine");
+        formation.add("Sleeper");
+        formation.add("Cargo");
+        formation.add("Guard");
 
-        System.out.println("Initial Train Consist:");
-        System.out.println(trainConsist);
+        // ADD duplicate intentionally
+        formation.add("Sleeper"); // will be ignored
 
-        // INSERT at position (index 2)
-        trainConsist.add(2, "Pantry Car");
+        // DISPLAY final formation
+        System.out.println("Final Train Formation:");
+        System.out.println(formation);
 
-        System.out.println("\nAfter Inserting Pantry Car at position 2:");
-        System.out.println(trainConsist);
+        System.out.println("\nNote:");
+        System.out.println("LinkedHashSet preserves insertion order and removes duplicates automatically.");
 
-        // REMOVE first and last
-        trainConsist.remove(0); // remove Engine
-        trainConsist.remove(trainConsist.size() - 1); // remove Guard
-
-        System.out.println("\nAfter Removing First and Last Bogie:");
-        System.out.println(trainConsist);
-
-        // FINAL OUTPUT
-        System.out.println("\nFinal Ordered Train Consist:");
-        System.out.println(trainConsist);
-
-        System.out.println("\nUC4 operations completed successfully...");
+        System.out.println("\nUC5 formation setup completed...");
     }
 }
