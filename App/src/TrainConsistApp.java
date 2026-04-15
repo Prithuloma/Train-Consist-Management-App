@@ -1,41 +1,58 @@
-import java.util.regex.*;
+import java.util.*;
+import java.util.function.Predicate;
 
 public class TrainConsistApp {
 
-    public static void main(String[] args) {
+    static class GoodsBogie {
+        String type;   // Rectangular / Cylindrical
+        String cargo;  // Coal / Petroleum etc.
 
-        System.out.println("======================================");
-        System.out.println(" UC11 - Validate Train ID & Cargo Codes ");
-        System.out.println("======================================\n");
+        GoodsBogie(String type, String cargo) {
+            this.type = type;
+            this.cargo = cargo;
+        }
 
-        // Sample inputs
-        String trainId1 = "TRN-1234";
-        String trainId2 = "TRAIN12";
-
-        String cargo1 = "CG-567";
-        String cargo2 = "CARGO99";
-
-        // Regex patterns
-        String trainPattern = "TRN-\\d{4}";
-        String cargoPattern = "CG-\\d{3}";
-
-        // Validate Train IDs
-        System.out.println("Train ID Validation:");
-        System.out.println(trainId1 + " -> " + isValid(trainId1, trainPattern));
-        System.out.println(trainId2 + " -> " + isValid(trainId2, trainPattern));
-
-        // Validate Cargo Codes
-        System.out.println("\nCargo Code Validation:");
-        System.out.println(cargo1 + " -> " + isValid(cargo1, cargoPattern));
-        System.out.println(cargo2 + " -> " + isValid(cargo2, cargoPattern));
-
-        System.out.println("\nUC11 validation completed...");
+        @Override
+        public String toString() {
+            return type + " -> " + cargo;
+        }
     }
 
-    // Method using Pattern + Matcher
-    public static boolean isValid(String input, String regex) {
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(input);
-        return matcher.matches();
+    public static void main(String[] args) {
+
+        System.out.println("==============================================");
+        System.out.println(" UC12 - Safety Compliance Check for Goods Bogies ");
+        System.out.println("==============================================\n");
+
+        // Create goods bogies
+        List<GoodsBogie> bogies = new ArrayList<>();
+
+        bogies.add(new GoodsBogie("Cylindrical", "Petroleum")); // valid
+        bogies.add(new GoodsBogie("Rectangular", "Coal"));      // valid
+        bogies.add(new GoodsBogie("Cylindrical", "Coal"));      // invalid ❌
+        bogies.add(new GoodsBogie("Rectangular", "Cement"));    // valid
+
+        // Rule: Cylindrical → only Petroleum allowed
+        Predicate<GoodsBogie> safetyRule = b ->
+                !(b.type.equals("Cylindrical") && !b.cargo.equals("Petroleum"));
+
+        System.out.println("All Goods Bogies:");
+        bogies.forEach(System.out::println);
+
+        // Apply safety filter
+        List<GoodsBogie> safeBogies = bogies.stream()
+                .filter(safetyRule)
+                .toList();
+
+        System.out.println("\nSafe Bogies:");
+        safeBogies.forEach(System.out::println);
+
+        // Identify violations
+        System.out.println("\nUnsafe Bogies Detected:");
+        bogies.stream()
+                .filter(safetyRule.negate())
+                .forEach(System.out::println);
+
+        System.out.println("\nUC12 safety validation completed...");
     }
 }
