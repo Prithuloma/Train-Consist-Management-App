@@ -1,57 +1,48 @@
-import java.util.Arrays;
-
 public class TrainConsistApp {
+
+    // Custom Exception
+    static class EmptyTrainException extends Exception {
+        public EmptyTrainException(String message) {
+            super(message);
+        }
+    }
 
     public static void main(String[] args) {
 
         System.out.println("======================================");
-        System.out.println(" UC19 - Binary Search for Bogie ID ");
+        System.out.println(" UC20 - Exception Handling During Search ");
         System.out.println("======================================\n");
 
-        // Sorted bogie IDs (IMPORTANT)
-        String[] bogieIds = {
-                "BG101",
-                "BG150",
-                "BG205",
-                "BG220",
-                "BG310"
-        };
+        // Try with empty array first
+        String[] bogieIds = {};   // empty train ❌
 
-        String searchId = "BG205"; // change to test
+        String searchId = "BG101";
 
-        // DISPLAY
-        System.out.println("Sorted Bogie IDs:");
-        for (String id : bogieIds) {
-            System.out.println(id);
-        }
-
-        // -------- BINARY SEARCH --------
-        int left = 0;
-        int right = bogieIds.length - 1;
-        int position = -1;
-
-        while (left <= right) {
-            int mid = (left + right) / 2;
-
-            int compare = bogieIds[mid].compareTo(searchId);
-
-            if (compare == 0) {
-                position = mid;
-                break;
-            } else if (compare < 0) {
-                left = mid + 1;
-            } else {
-                right = mid - 1;
+        try {
+            // FAIL-FAST CHECK
+            if (bogieIds.length == 0) {
+                throw new EmptyTrainException("Train has no bogies. Cannot perform search.");
             }
+
+            // -------- LINEAR SEARCH --------
+            boolean found = false;
+
+            for (int i = 0; i < bogieIds.length; i++) {
+                if (bogieIds[i].equals(searchId)) {
+                    found = true;
+                    System.out.println("Bogie ID " + searchId + " found at position: " + i);
+                    break;
+                }
+            }
+
+            if (!found) {
+                System.out.println("Bogie ID " + searchId + " not found");
+            }
+
+        } catch (EmptyTrainException e) {
+            System.out.println("ERROR: " + e.getMessage());
         }
 
-        // RESULT
-        if (position != -1) {
-            System.out.println("\nBogie ID " + searchId + " found at position: " + position);
-        } else {
-            System.out.println("\nBogie ID " + searchId + " not found");
-        }
-
-        System.out.println("\nUC19 binary search completed...");
+        System.out.println("\nUC20 execution completed...");
     }
 }
